@@ -1,11 +1,10 @@
-﻿using GildedRose.Constants;
-
-namespace GildedRose.Strategies;
+﻿namespace GildedRose.Strategies;
 
 internal class NormalItemUpdateStrategy : IQualityUpdaterStrategy
 {
     public int UpdateQuality(Item item)
     {
+
         if (item.Quality > 0)
         {
             item.Quality -= 1;

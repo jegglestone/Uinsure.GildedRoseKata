@@ -24,6 +24,7 @@ public class GildedRoseInventoryUpdater(IList<Item> Items)
             {
                 var agedBrieStrategy = new AgedBrieUpdateStrategy();
                 item.Quality = agedBrieStrategy.UpdateQuality(Items[i]);
+                continue;
             }
             else if (item.Name == ItemNames.BackstagePasses)
             {
@@ -31,33 +32,11 @@ public class GildedRoseInventoryUpdater(IList<Item> Items)
                 item.Quality = backStagePassesStrategy.UpdateQuality(Items[i]);
                 continue;
             }
-            else if (item.Quality > 0)
+            else 
             {
                 var normalItemStrategy = new NormalItemUpdateStrategy();
                 normalItemStrategy.UpdateQuality(Items[i]);
                 continue;
-            }
-
-            item.SellInDays = item.SellInDays - 1;
-
-            if (item.SellInDays < 0)
-            {
-                if (item.Name == ItemNames.AgedBrie)
-                {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality = item.Quality + 1;
-                    }
-                }
-                else
-                {
-
-                    if (item.Quality > 0)
-                    {
-                        item.Quality = item.Quality - 1;
-                    }
-
-                }
             }
         }
     }
