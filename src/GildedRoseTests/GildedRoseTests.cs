@@ -49,4 +49,14 @@ public class GildedRoseTests
         app.UpdateQuality();
         Assert.Equal(0, items[0].Quality);
     }
+
+    [Fact]
+    public void SulfurasNeverHasToBeSoldOrDecreaseInQuality()
+    {
+        List<Item> items = [new Item { Name = "Sulfuras, Hand of Ragnaros", SellInDays = 0, Quality = 80 }];
+        GildedRose app = new(items);
+        app.UpdateQuality();
+        Assert.Equal(80, items[0].Quality);
+        Assert.Equal(0, items[0].SellInDays);
+    }
 }
