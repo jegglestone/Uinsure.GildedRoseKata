@@ -20,53 +20,28 @@ public class GildedRoseInventoryUpdater(IList<Item> Items)
                 sulfurasStrategy.UpdateQuality(Items[i]);
                 continue;
             }
-
-            if (item.Name == ItemNames.AgedBrie)
+            else if (item.Name == ItemNames.AgedBrie)
             {
                 var agedBrieStrategy = new AgedBrieUpdateStrategy();
                 item.Quality = agedBrieStrategy.UpdateQuality(Items[i]);
-
             }
-
-            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+            else if (item.Name == ItemNames.BackstagePasses)
             {
-                if (item.Quality < 50)
-                {
-                    item.Quality = item.Quality + 1;
-
-                    if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
-                    {
-                        if (item.SellInDays < 11)
-                        {
-                            if (item.Quality < 50)
-                            {
-                                item.Quality += 1;
-                            }
-                        }
-
-                        if (item.SellInDays < 6)
-                        {
-                            if (item.Quality < 50)
-                            {
-                                item.Quality += 1;
-                            }
-                        }
-                    }
-                }
+                var backStagePassesStrategy = new BackstagePassesUpdateStrategy();
+                item.Quality = backStagePassesStrategy.UpdateQuality(Items[i]);
             }
-            else
+            else if (item.Quality > 0)
             {
-                if (item.Quality > 0 && item.Name != ItemNames.AgedBrie)
-                {
-                    item.Quality = item.Quality - 1;
-                }
+                var normalItemStrategy = new NormalItemUpdateStrategy();
+                normalItemStrategy.UpdateQuality(Items[i]);
+                continue;
             }
 
             item.SellInDays = item.SellInDays - 1;
 
             if (item.SellInDays < 0)
             {
-                if (item.Name == "Aged Brie")
+                if (item.Name == ItemNames.AgedBrie)
                 {
                     if (item.Quality < 50)
                     {
@@ -75,7 +50,7 @@ public class GildedRoseInventoryUpdater(IList<Item> Items)
                 }
                 else
                 {
-                    if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                    if (item.Name == ItemNames.BackstagePasses)
                     {
                         item.Quality = item.Quality - item.Quality;
                     }
