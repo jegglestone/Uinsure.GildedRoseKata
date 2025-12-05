@@ -1,5 +1,4 @@
-﻿using GildedRose.Constants;
-using GildedRose.Strategies;
+﻿using GildedRose.Factory;
 
 namespace GildedRose;
 
@@ -13,24 +12,7 @@ public class GildedRoseInventoryUpdater(IList<Item> Items)
         {
             var item = Items[i];
 
-            IQualityUpdaterStrategy strategy;
-
-            if (item.Name == ItemNames.Sulfuras)
-            {
-                strategy = new SulfurasStrategy();
-            }
-            else if (item.Name == ItemNames.AgedBrie)
-            {
-                strategy = new AgedBrieUpdateStrategy();
-            }
-            else if (item.Name == ItemNames.BackstagePasses)
-            {
-                strategy = new BackstagePassesUpdateStrategy();
-            }
-            else 
-            {
-                strategy = new NormalItemUpdateStrategy();
-            }
+            var strategy = QualityUpdaterStrategyFactory.GetQualityUpdaterStrategy(item.Name);
 
             strategy.UpdateQuality(Items[i]);
         }
