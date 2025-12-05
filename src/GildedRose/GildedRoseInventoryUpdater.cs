@@ -1,13 +1,24 @@
-﻿namespace GildedRose;
+﻿using GildedRose.Constants;
+using GildedRose.Strategies;
+
+namespace GildedRose;
 
 public class GildedRoseInventoryUpdater(IList<Item> Items)
 {
     private readonly IList<Item> Items = Items;
 
-    public void UpdateQuality()
+
+    public void UpdateQualityAndSellInDays()
     {
         for (var i = 0; i < Items.Count; i++)
         {
+            if (Items[i].Name == ItemNames.Sulfuras)
+            {
+                var sulfurasStrategy = new SulfurasStrategy();
+                sulfurasStrategy.UpdateQuality(Items[i]);
+                continue;
+            }
+
             if (Items[i].Name == "Aged Brie" || Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
             {
                 if (Items[i].Quality < 50)
@@ -38,24 +49,12 @@ public class GildedRoseInventoryUpdater(IList<Item> Items)
             {
                 if (Items[i].Quality > 0)
                 {
-                    if (Items[i].Name == "Sulfuras, Hand of Ragnaros")
-                    {
-                    }
-                    else
-                    {
-                        Items[i].Quality = Items[i].Quality - 1;
-                    }
+                    Items[i].Quality = Items[i].Quality - 1;
                 }
             }
 
-            if (Items[i].Name == "Sulfuras, Hand of Ragnaros")
-            {
-            }
-            else
-            {
-                Items[i].SellInDays = Items[i].SellInDays - 1;
-            }
-
+            Items[i].SellInDays = Items[i].SellInDays - 1;
+            
             if (Items[i].SellInDays < 0)
             {
                 if (Items[i].Name == "Aged Brie")
@@ -75,11 +74,7 @@ public class GildedRoseInventoryUpdater(IList<Item> Items)
                     {
                         if (Items[i].Quality > 0)
                         {
-                            if (Items[i].Name == "Sulfuras, Hand of Ragnaros")
-                            {
-                                continue;
-                            }
-                            Items[i].Quality = Items[i].Quality - 1;
+                            Items[i].Quality = Items[i].Quality - 1;                            
                         }
                     }
                 }

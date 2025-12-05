@@ -11,7 +11,7 @@ public class GildedRoseTests
         List<Item> items = [new Item { Name = "Normal Item", SellInDays = 5, Quality = 10 }];
         GildedRoseInventoryUpdater app = new(items);
 
-        app.UpdateQuality();
+        app.UpdateQualityAndSellInDays();
 
         items[0].Quality.Should().Be(9);
     }
@@ -21,7 +21,7 @@ public class GildedRoseTests
     {
         List<Item> items = [new Item { Name = "Normal Item", SellInDays = 5, Quality = 10 }];
         GildedRoseInventoryUpdater app = new(items);
-        app.UpdateQuality();
+        app.UpdateQualityAndSellInDays();
 
         items[0].SellInDays.Should().Be(4);
     }
@@ -31,7 +31,7 @@ public class GildedRoseTests
     {
         List<Item> items = [new Item { Name = "Normal Item", SellInDays = 0, Quality = 10 }];
         GildedRoseInventoryUpdater app = new(items);
-        app.UpdateQuality();
+        app.UpdateQualityAndSellInDays();
 
 
         items[0].Quality.Should().Be(8);
@@ -45,7 +45,7 @@ public class GildedRoseTests
     {
         List<Item> items = [new Item { Name = itemName, SellInDays = 5, Quality = 0 }];
         GildedRoseInventoryUpdater app = new(items);
-        app.UpdateQuality();
+        app.UpdateQualityAndSellInDays();
 
         Assert.True(items[0].Quality >= 0);
     }
@@ -55,7 +55,7 @@ public class GildedRoseTests
     {
         List<Item> items = [new Item { Name = "Aged Brie", SellInDays = 2, Quality = 0 }];
         GildedRoseInventoryUpdater app = new(items);
-        app.UpdateQuality();
+        app.UpdateQualityAndSellInDays();
 
         items[0].Quality.Should().Be(1);
     }
@@ -65,7 +65,7 @@ public class GildedRoseTests
     {
         List<Item> items = [new Item { Name = "Sulfuras, Hand of Ragnaros", SellInDays = 0, Quality = 80 }];
         GildedRoseInventoryUpdater app = new(items);
-        app.UpdateQuality();
+        app.UpdateQualityAndSellInDays();
 
         items[0].Quality.Should().Be(80);
         items[0].SellInDays.Should().Be(0);
@@ -76,7 +76,7 @@ public class GildedRoseTests
     {
         List<Item> items = [new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellInDays = 10, Quality = 20 }];
         GildedRoseInventoryUpdater app = new(items);
-        app.UpdateQuality();
+        app.UpdateQualityAndSellInDays();
         items[0].Quality.Should().Be(22);
     }
 
@@ -85,7 +85,7 @@ public class GildedRoseTests
     {
         List<Item> items = [new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellInDays = 10, Quality = 30 }];
         GildedRoseInventoryUpdater app = new(items);
-        app.UpdateQuality();
+        app.UpdateQualityAndSellInDays();
 
         items[0].Quality.Should().Be(32);
     }
@@ -95,7 +95,7 @@ public class GildedRoseTests
     {
         List<Item> items = [new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellInDays = 8, Quality = 30 }];
         GildedRoseInventoryUpdater app = new(items);
-        app.UpdateQuality();
+        app.UpdateQualityAndSellInDays();
 
         items[0].Quality.Should().Be(32);
     }
@@ -105,7 +105,7 @@ public class GildedRoseTests
     {
         List<Item> items = [new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellInDays = 5, Quality = 30 }];
         GildedRoseInventoryUpdater app = new(items);
-        app.UpdateQuality();
+        app.UpdateQualityAndSellInDays();
 
         items[0].Quality.Should().Be(33);
     }
@@ -115,7 +115,7 @@ public class GildedRoseTests
     {
         List<Item> items = [new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellInDays = 4, Quality = 30 }];
         GildedRoseInventoryUpdater app = new(items);
-        app.UpdateQuality();
+        app.UpdateQualityAndSellInDays();
 
         items[0].Quality.Should().Be(33);
     }
@@ -125,7 +125,7 @@ public class GildedRoseTests
     {
         List<Item> items = [new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellInDays = 0, Quality = 20 }];
         GildedRoseInventoryUpdater app = new(items);
-        app.UpdateQuality();
+        app.UpdateQualityAndSellInDays();
 
         items[0].Quality.Should().Be(0);
     }

@@ -51,7 +51,7 @@ public class Program
                 System.Console.WriteLine(Items[j].Name + ", " + Items[j].SellInDays + ", " + Items[j].Quality);
             }
             Console.WriteLine("");
-            app.UpdateQuality();
+            app.UpdateQualityAndSellInDays();
         }
     }
 }
