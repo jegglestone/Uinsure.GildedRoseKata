@@ -2,7 +2,7 @@
 
 namespace GildedRoseTests;
 
-public class GildedRoseTest
+public class GildedRoseTests
 {
     [Fact]
     public void Foo()
@@ -10,6 +10,6 @@ public class GildedRoseTest
         List<Item> items = [ new Item { Name = "foo", SellInDays = 0, Quality = 0 } ];
         GildedRose app = new(items);
         app.UpdateQuality();
-        Assert.Equal("fixme", items[0].Name);
+        Assert.Equal("foo", items[0].Name);
     }
 }
