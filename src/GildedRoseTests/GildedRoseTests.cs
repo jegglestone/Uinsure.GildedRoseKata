@@ -41,17 +41,20 @@ public class GildedRoseTests
         Assert.Equal(8, items[0].Quality);
     }
 
-    [Fact]
-    public void QualityNeverNegative()
+    [Theory]
+    [InlineData("Normal Item")]
+    [InlineData("Aged Brie")]
+    [InlineData("Backstage passes to a TAFKAL80ETC concert")]
+    public void QualityNeverNegative(string itemName)
     {
-        List<Item> items = [new Item { Name = "Normal Item", SellInDays = 5, Quality = 0 }];
+        List<Item> items = [new Item { Name = itemName, SellInDays = 5, Quality = 0 }];
         GildedRose app = new(items);
         app.UpdateQuality();
-        Assert.Equal(0, items[0].Quality);
+        Assert.True(items[0].Quality >= 0);
     }
 
     [Fact]
-    public void SulfurasNeverHasToBeSoldOrDecreaseInQuality()
+    public void SulfurasNeverHaveToBeSoldOrDecreaseInQuality()
     {
         List<Item> items = [new Item { Name = "Sulfuras, Hand of Ragnaros", SellInDays = 0, Quality = 80 }];
         GildedRose app = new(items);
@@ -59,4 +62,6 @@ public class GildedRoseTests
         Assert.Equal(80, items[0].Quality);
         Assert.Equal(0, items[0].SellInDays);
     }
+
+
 }
