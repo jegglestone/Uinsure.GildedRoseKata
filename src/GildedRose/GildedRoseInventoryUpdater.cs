@@ -12,34 +12,43 @@ public class GildedRoseInventoryUpdater(IList<Item> Items)
     {
         for (var i = 0; i < Items.Count; i++)
         {
-            if (Items[i].Name == ItemNames.Sulfuras)
+            var item = Items[i];
+
+            if (item.Name == ItemNames.Sulfuras)
             {
                 var sulfurasStrategy = new SulfurasStrategy();
                 sulfurasStrategy.UpdateQuality(Items[i]);
                 continue;
             }
 
-            if (Items[i].Name == "Aged Brie" || Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
+            if (item.Name == ItemNames.AgedBrie)
             {
-                if (Items[i].Quality < 50)
-                {
-                    Items[i].Quality = Items[i].Quality + 1;
+                var agedBrieStrategy = new AgedBrieUpdateStrategy();
+                item.Quality = agedBrieStrategy.UpdateQuality(Items[i]);
 
-                    if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
+            }
+
+            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+            {
+                if (item.Quality < 50)
+                {
+                    item.Quality = item.Quality + 1;
+
+                    if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
                     {
-                        if (Items[i].SellInDays < 11)
+                        if (item.SellInDays < 11)
                         {
-                            if (Items[i].Quality < 50)
+                            if (item.Quality < 50)
                             {
-                                Items[i].Quality = Items[i].Quality + 1;
+                                item.Quality += 1;
                             }
                         }
 
-                        if (Items[i].SellInDays < 6)
+                        if (item.SellInDays < 6)
                         {
-                            if (Items[i].Quality < 50)
+                            if (item.Quality < 50)
                             {
-                                Items[i].Quality = Items[i].Quality + 1;
+                                item.Quality += 1;
                             }
                         }
                     }
@@ -47,34 +56,34 @@ public class GildedRoseInventoryUpdater(IList<Item> Items)
             }
             else
             {
-                if (Items[i].Quality > 0)
+                if (item.Quality > 0 && item.Name != ItemNames.AgedBrie)
                 {
-                    Items[i].Quality = Items[i].Quality - 1;
+                    item.Quality = item.Quality - 1;
                 }
             }
 
-            Items[i].SellInDays = Items[i].SellInDays - 1;
-            
-            if (Items[i].SellInDays < 0)
+            item.SellInDays = item.SellInDays - 1;
+
+            if (item.SellInDays < 0)
             {
-                if (Items[i].Name == "Aged Brie")
+                if (item.Name == "Aged Brie")
                 {
-                    if (Items[i].Quality < 50)
+                    if (item.Quality < 50)
                     {
-                        Items[i].Quality = Items[i].Quality + 1;
+                        item.Quality = item.Quality + 1;
                     }
                 }
                 else
                 {
-                    if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
+                    if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
                     {
-                        Items[i].Quality = Items[i].Quality - Items[i].Quality;
+                        item.Quality = item.Quality - item.Quality;
                     }
                     else
                     {
-                        if (Items[i].Quality > 0)
+                        if (item.Quality > 0)
                         {
-                            Items[i].Quality = Items[i].Quality - 1;                            
+                            item.Quality = item.Quality - 1;
                         }
                     }
                 }

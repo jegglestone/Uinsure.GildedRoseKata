@@ -2,5 +2,5 @@
 
 internal interface IQualityUpdaterStrategy
 {
-    void UpdateQuality(Item item);
+    int UpdateQuality(Item item);
 }
