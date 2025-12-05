@@ -1,4 +1,6 @@
-﻿namespace GildedRoseKata;
+﻿using GildedRose;
+
+namespace GildedRoseKata;
 
 public class Program
 {
@@ -38,7 +40,7 @@ public class Program
             new Item { Name = "Conjured Mana Cake", SellInDays = 3, Quality = 6 }
         ];
 
-        var app = new GildedRose(Items);
+        var app = new GildedRoseInventoryUpdater(Items);
 
         for (var i = 0; i < 31; i++)
         {
