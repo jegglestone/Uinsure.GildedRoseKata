@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using GildedRose;
+using GildedRoseKata;
 
 namespace GildedRoseTests;
 
