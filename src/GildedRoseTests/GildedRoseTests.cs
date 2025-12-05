@@ -63,5 +63,39 @@ public class GildedRoseTests
         Assert.Equal(0, items[0].SellInDays);
     }
 
+    [Fact]
+    public void BackstagePassesIncreaseInQuality()
+    {
+        List<Item> items = [new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellInDays = 10, Quality = 20 }];
+        GildedRose app = new(items);
+        app.UpdateQuality();
+        Assert.Equal(22, items[0].Quality);
+    }
 
+    [Fact]
+    public void BackstagePassesIncreaseInQualityBy2WhenThereAre10SellInDaysLeft()
+    {
+        List<Item> items = [new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellInDays = 10, Quality = 30 }];
+        GildedRose app = new(items);
+        app.UpdateQuality();
+        Assert.Equal(32, items[0].Quality);
+    }
+
+    [Fact]
+    public void BackstagePassesIncreaseInQualityBy2WhenThereAreLessThan10SellInDaysLeft()
+    {
+        List<Item> items = [new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellInDays = 8, Quality = 30 }];
+        GildedRose app = new(items);
+        app.UpdateQuality();
+        Assert.Equal(32, items[0].Quality);
+    }
+
+    [Fact]
+    public void BackstagePassesQualityDropsToZeroAfterConcert()
+    {
+        List<Item> items = [new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellInDays = 0, Quality = 20 }];
+        GildedRose app = new(items);
+        app.UpdateQuality();
+        Assert.Equal(0, items[0].Quality);
+    }
 }
