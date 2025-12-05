@@ -1,16 +1,15 @@
 ﻿namespace GildedRose.Strategies;
 
-internal class NormalItemUpdateStrategy : IQualityUpdaterStrategy
+internal class NormalItemUpdateStrategy : BaseQualityUpdaterStrategy
 {
-    public int UpdateQuality(Item item)
+    public override void UpdateQuality(Item item)
     {
-
         if (item.Quality > 0)
         {
             item.Quality -= 1;
         }
 
-        item.SellInDays = item.SellInDays - 1;
+        DecrementSellInDaysByOneDay(item);
 
         if (item.SellInDays < 0)
         {
@@ -19,7 +18,5 @@ internal class NormalItemUpdateStrategy : IQualityUpdaterStrategy
                 item.Quality = item.Quality - 1;
             }              
         }
-
-        return item.Quality;
     }
 }

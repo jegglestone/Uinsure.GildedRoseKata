@@ -23,13 +23,13 @@ public class GildedRoseInventoryUpdater(IList<Item> Items)
             else if (item.Name == ItemNames.AgedBrie)
             {
                 var agedBrieStrategy = new AgedBrieUpdateStrategy();
-                item.Quality = agedBrieStrategy.UpdateQuality(Items[i]);
+                agedBrieStrategy.UpdateQuality(Items[i]);
                 continue;
             }
             else if (item.Name == ItemNames.BackstagePasses)
             {
                 var backStagePassesStrategy = new BackstagePassesUpdateStrategy();
-                item.Quality = backStagePassesStrategy.UpdateQuality(Items[i]);
+                backStagePassesStrategy.UpdateQuality(Items[i]);
                 continue;
             }
             else 

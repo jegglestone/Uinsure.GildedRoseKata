@@ -1,10 +1,8 @@
-﻿using GildedRose.Constants;
+﻿namespace GildedRose.Strategies;
 
-namespace GildedRose.Strategies;
-
-internal class BackstagePassesUpdateStrategy : IQualityUpdaterStrategy
+internal class BackstagePassesUpdateStrategy : BaseQualityUpdaterStrategy
 {
-    public int UpdateQuality(Item item)
+    public override void UpdateQuality(Item item)
     {
         if (item.Quality < 50)
         {
@@ -24,19 +22,17 @@ internal class BackstagePassesUpdateStrategy : IQualityUpdaterStrategy
                 {
                     item.Quality += 1;
                 }
-            }            
+            }
         }
 
-        item.SellInDays = item.SellInDays - 1;
+        DecrementSellInDaysByOneDay(item);
 
         if (item.SellInDays < 0)
         {
             if (item.Quality > 0)
             {
                 item.Quality = item.Quality - item.Quality;
-            }            
+            }
         }
-
-        return item.Quality;
     }
 }

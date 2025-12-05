@@ -2,8 +2,8 @@
 
 internal class SulfurasStrategy : IQualityUpdaterStrategy
 {
-    public int UpdateQuality(Item item)
+    public void UpdateQuality(Item item)
     {
-        return item.Quality;
+        return;
     }
 }
