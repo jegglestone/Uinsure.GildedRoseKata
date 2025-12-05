@@ -1,6 +1,8 @@
-﻿namespace GildedRose.Strategies;
+﻿using GildedRose.Constants;
 
-internal class BackstagePassesUpdateStrategy
+namespace GildedRose.Strategies;
+
+internal class BackstagePassesUpdateStrategy : IQualityUpdaterStrategy
 {
     public int UpdateQuality(Item item)
     {
@@ -8,24 +10,31 @@ internal class BackstagePassesUpdateStrategy
         {
             item.Quality = item.Quality + 1;
 
-            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+            if (item.SellInDays < 11)
             {
-                if (item.SellInDays < 11)
+                if (item.Quality < 50)
                 {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality += 1;
-                    }
-                }
-
-                if (item.SellInDays < 6)
-                {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality += 1;
-                    }
+                    item.Quality += 1;
                 }
             }
+
+            if (item.SellInDays < 6)
+            {
+                if (item.Quality < 50)
+                {
+                    item.Quality += 1;
+                }
+            }            
+        }
+
+        item.SellInDays = item.SellInDays - 1;
+
+        if (item.SellInDays < 0)
+        {
+            if (item.Quality > 0)
+            {
+                item.Quality = item.Quality - item.Quality;
+            }            
         }
 
         return item.Quality;

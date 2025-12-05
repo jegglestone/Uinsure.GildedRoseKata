@@ -29,6 +29,7 @@ public class GildedRoseInventoryUpdater(IList<Item> Items)
             {
                 var backStagePassesStrategy = new BackstagePassesUpdateStrategy();
                 item.Quality = backStagePassesStrategy.UpdateQuality(Items[i]);
+                continue;
             }
             else if (item.Quality > 0)
             {
@@ -50,17 +51,12 @@ public class GildedRoseInventoryUpdater(IList<Item> Items)
                 }
                 else
                 {
-                    if (item.Name == ItemNames.BackstagePasses)
+
+                    if (item.Quality > 0)
                     {
-                        item.Quality = item.Quality - item.Quality;
+                        item.Quality = item.Quality - 1;
                     }
-                    else
-                    {
-                        if (item.Quality > 0)
-                        {
-                            item.Quality = item.Quality - 1;
-                        }
-                    }
+
                 }
             }
         }
