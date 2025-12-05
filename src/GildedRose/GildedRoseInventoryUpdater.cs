@@ -7,37 +7,32 @@ public class GildedRoseInventoryUpdater(IList<Item> Items)
 {
     private readonly IList<Item> Items = Items;
 
-
     public void UpdateQualityAndSellInDays()
     {
         for (var i = 0; i < Items.Count; i++)
         {
             var item = Items[i];
 
+            IQualityUpdaterStrategy strategy;
+
             if (item.Name == ItemNames.Sulfuras)
             {
-                var sulfurasStrategy = new SulfurasStrategy();
-                sulfurasStrategy.UpdateQuality(Items[i]);
-                continue;
+                strategy = new SulfurasStrategy();
             }
             else if (item.Name == ItemNames.AgedBrie)
             {
-                var agedBrieStrategy = new AgedBrieUpdateStrategy();
-                agedBrieStrategy.UpdateQuality(Items[i]);
-                continue;
+                strategy = new AgedBrieUpdateStrategy();
             }
             else if (item.Name == ItemNames.BackstagePasses)
             {
-                var backStagePassesStrategy = new BackstagePassesUpdateStrategy();
-                backStagePassesStrategy.UpdateQuality(Items[i]);
-                continue;
+                strategy = new BackstagePassesUpdateStrategy();
             }
             else 
             {
-                var normalItemStrategy = new NormalItemUpdateStrategy();
-                normalItemStrategy.UpdateQuality(Items[i]);
-                continue;
+                strategy = new NormalItemUpdateStrategy();
             }
+
+            strategy.UpdateQuality(Items[i]);
         }
     }
 }

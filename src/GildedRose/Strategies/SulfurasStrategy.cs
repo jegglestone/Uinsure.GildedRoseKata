@@ -1,8 +1,8 @@
 ﻿namespace GildedRose.Strategies;
 
-internal class SulfurasStrategy : IQualityUpdaterStrategy
+internal class SulfurasStrategy : BaseQualityUpdaterStrategy
 {
-    public void UpdateQuality(Item item)
+    public override void UpdateQuality(Item item)
     {
         return;
     }
