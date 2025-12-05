@@ -1,4 +1,4 @@
-﻿namespace GildedRoseKata;
+﻿namespace GildedRose;
 
 public class Program
 {
@@ -46,7 +46,7 @@ public class Program
             Console.WriteLine("name, sellIn, quality");
             for (var j = 0; j < Items.Count; j++)
             {
-                System.Console.WriteLine(Items[j].Name + ", " + Items[j].SellInDays + ", " + Items[j].Quality);
+                Console.WriteLine(Items[j].Name + ", " + Items[j].SellInDays + ", " + Items[j].Quality);
             }
             Console.WriteLine("");
             app.UpdateQuality();
