@@ -12,6 +12,7 @@ namespace GildedRose.Factory
                 ItemNames.Sulfuras => new SulfurasStrategy(),
                 ItemNames.AgedBrie => new AgedBrieUpdateStrategy(),
                 ItemNames.BackstagePasses => new BackstagePassesUpdateStrategy(),
+                ItemNames.Conjured => new ConjuredUpdateStrategy(),
                 _ => new NormalItemUpdateStrategy(),
             };
         }

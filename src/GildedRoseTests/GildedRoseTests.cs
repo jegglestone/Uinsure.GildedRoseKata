@@ -41,6 +41,7 @@ public class GildedRoseTests
     [InlineData("Normal Item")]
     [InlineData("Aged Brie")]
     [InlineData("Backstage passes to a TAFKAL80ETC concert")]
+    [InlineData("Conjured Mana Cake")]
     public void QualityNeverNegative(string itemName)
     {
         List<Item> items = [new Item { Name = itemName, SellInDays = 5, Quality = 0 }];
@@ -128,5 +129,25 @@ public class GildedRoseTests
         app.UpdateQualityAndSellInDays();
 
         items[0].Quality.Should().Be(0);
+    }
+
+    [Fact]
+    public void ConjuredItemsDegradeInQualityTwiceAsFastAsNormalItems()
+    {
+        List<Item> items = [new Item { Name = "Conjured Mana Cake", SellInDays = 3, Quality = 6 }];
+        GildedRoseInventoryUpdater app = new(items);
+        app.UpdateQualityAndSellInDays();
+
+        items[0].Quality.Should().Be(4);
+    }
+
+    [Fact]
+    public void ConjuredItemsQualityNeverExceeds50()
+    {
+        List<Item> items = [new Item { Name = "Conjured Mana Cake", SellInDays = 3, Quality = 50 }];
+        GildedRoseInventoryUpdater app = new(items);
+        app.UpdateQualityAndSellInDays();
+
+        Assert.True(items[0].Quality <= 50);
     }
 }
